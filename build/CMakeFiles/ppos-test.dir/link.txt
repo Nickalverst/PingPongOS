@@ -1,0 +1,1 @@
+/usr/bin/c89-gcc -g   CMakeFiles/ppos-test.dir/ppos-core-aux.c.o CMakeFiles/ppos-test.dir/pingpong-scheduler-srtf.c.o  -o ppos-test  ../libppos_static.a 

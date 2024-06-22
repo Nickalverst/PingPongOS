@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/home/nicolas/Downloads/PingPongOS-nicky/build",
+  "command": "/usr/bin/c89-gcc   -g   -o CMakeFiles/ppos-test.dir/ppos-core-aux.c.o   -c /home/nicolas/Downloads/PingPongOS-nicky/ppos-core-aux.c",
+  "file": "/home/nicolas/Downloads/PingPongOS-nicky/ppos-core-aux.c"
+},
+{
+  "directory": "/home/nicolas/Downloads/PingPongOS-nicky/build",
+  "command": "/usr/bin/c89-gcc   -g   -o CMakeFiles/ppos-test.dir/pingpong-scheduler-srtf.c.o   -c /home/nicolas/Downloads/PingPongOS-nicky/pingpong-scheduler-srtf.c",
+  "file": "/home/nicolas/Downloads/PingPongOS-nicky/pingpong-scheduler-srtf.c"
+}
+]
