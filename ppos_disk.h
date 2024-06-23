@@ -32,12 +32,12 @@ enum scheduler {
 typedef struct {
   // completar com os campos necessarios
   int wakeup;
+  int head_pos;
   enum scheduler scheduler;
   queue_t *ready_queue;
   queue_t *suspend_queue;
   semaphore_t semaphore;
   task_t disk_task;
-  int head_pos;
 } disk_t;
 
 

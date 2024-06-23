@@ -4,7 +4,7 @@ project(ppos-test)
 set(SOURCE_FILES 
     ppos-core-aux.c 
     disk.c
-    pingpong-disco1.c
+    pingpong-disco2.c
     ppos_disk.c
 )
 

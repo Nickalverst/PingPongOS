@@ -1,1 +1,0 @@
-/usr/bin/c89-gcc -g   CMakeFiles/ppos-test.dir/ppos-core-aux.c.o CMakeFiles/ppos-test.dir/disk.c.o CMakeFiles/ppos-test.dir/pingpong-disco1.c.o CMakeFiles/ppos-test.dir/ppos_disk.c.o  -o ppos-test  ../libppos_static.a 

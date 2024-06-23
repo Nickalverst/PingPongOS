@@ -19,33 +19,37 @@ request_t *request_create(int operation, int block, void *buffer,
 }
 
 request_t *fcfs() {
-  request_t *request = (request_t *)queue_remove(&disk.ready_queue, disk.ready_queue);
+  request_t *request =
+      (request_t *)queue_remove(&disk.ready_queue, disk.ready_queue);
   return request;
 }
 
 request_t *sstf() {
   request_t *first, *closest, *aux;
-  first = closest = (request_t *)queue_remove(&disk.ready_queue, disk.ready_queue);
+  first = closest =
+      (request_t *)queue_remove(&disk.ready_queue, disk.ready_queue);
+  aux = first->next;
 
   int distance = abs(first->block - disk.head_pos);
 
-  while (aux != first || aux != NULL) {
+  while (aux != first && aux != NULL) {
     if (abs(aux->block - disk.head_pos) < distance) {
       closest = aux;
       distance = abs(aux->block - disk.head_pos);
     }
     aux = aux->next;
   }
-  
+
   return closest;
 }
 
 request_t *cscan() {
   request_t *first, *lowest, *aux;
-  first = lowest = (request_t *)queue_remove(&disk.ready_queue, disk.ready_queue);
+  first = lowest =
+      (request_t *)queue_remove(&disk.ready_queue, disk.ready_queue);
   aux = first->next;
 
-  while (aux != first || aux != NULL) {
+  while (aux != first && aux != NULL) {
     if (aux->block < lowest->block) {
       lowest = aux;
     }
@@ -76,7 +80,6 @@ void disk_queue_manager(void *arg __attribute__((unused))) {
       disk.head_pos = task_request->block;
       task_resume(task_request->task);
     }
-    
 
     if (disk_cmd(DISK_CMD_STATUS, 0, 0) == DISK_STATUS_IDLE &&
         queue_size(disk.ready_queue) > 0) {
@@ -117,9 +120,9 @@ int disk_mgr_init(int *numBlocks, int *blockSize) {
   disk.wakeup = 0;
   disk.head_pos = 0;
   disk.suspend_queue = NULL;
-  //disk.scheduler = FCFS;
-  disk.scheduler = SSTF;
-  // disk.scheduler = CSCAN;
+  // disk.scheduler = FCFS;
+  // disk.scheduler = SSTF;
+  disk.scheduler = CSCAN;
 
   task_create(&disk.disk_task, disk_queue_manager, NULL);
   sem_create(&disk.semaphore, 0);
@@ -142,7 +145,6 @@ int disk_block_read(int block, void *buffer) {
 
   if (!buffer)
     return -1;
-  
 
   sem_up(&disk.semaphore);
   request_t *request = request_create(DISK_CMD_READ, block, buffer, taskExec);
@@ -156,7 +158,6 @@ int disk_block_read(int block, void *buffer) {
   sem_down(&disk.semaphore);
   return 0;
 }
-
 
 /*
     As tarefas podem ler e escrever blocos de dados no disco virtual através das
