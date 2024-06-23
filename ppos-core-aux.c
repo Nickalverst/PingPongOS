@@ -1,3 +1,4 @@
+#include "disk.h"
 #include "ppos-core-globals.h"
 #include "ppos.h"
 #include "ppos_data.h"
@@ -7,6 +8,7 @@
 // ****************************************************************************
 // Coloque aqui as suas modificações, p.ex. includes, defines variáveis,
 // estruturas e funções
+#include "ppos_disk.h"
 #include <signal.h>
 #include <sys/time.h>
 
@@ -33,6 +35,11 @@ void handler(int signum) {
     taskExec->quantum--;
     taskExec->ret--;
     taskExec->running_time++;
+    break;
+  case SIGUSR1:
+    disk.wakeup = 1;
+    if (disk_cmd(DISK_CMD_STATUS, 0, 0) == DISK_STATUS_IDLE)
+      task_resume(&disk.disk_task);
     break;
   case SIGINT:
   case SIGTERM:
@@ -129,7 +136,6 @@ task_t *scheduler() {
     }
   }
 
-  task->activations++;
   return task;
 }
 
@@ -149,6 +155,11 @@ void after_ppos_init() {
   action.sa_flags = 0;
 
   if (sigaction(SIGALRM, &action, NULL) < 0) {
+    perror("Erro em sigaction: ");
+    exit(1);
+  }
+
+  if (sigaction(SIGUSR1, &action, NULL) < 0) {
     perror("Erro em sigaction: ");
     exit(1);
   }
@@ -212,6 +223,7 @@ void before_task_switch(task_t *task) {
 
 void after_task_switch(task_t *task) {
   // put your customization here
+  task->activations++;
 #ifdef DEBUG
   printf("\ntask_switch - AFTER - [%d -> %d]", taskExec->id, task->id);
 #endif

@@ -28,8 +28,8 @@ typedef struct task_t {
   int eet; // estimated execution time
   int ret; // remaining execution time
   int quantum; // quantum
-  int running_time; // running time (total)
-  int processor_time; // processor time 
+  int running_time; // running time
+  int processor_time; // processor time
   int activations; // activations
   int priority; // priority
 } task_t;

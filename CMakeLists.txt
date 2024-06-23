@@ -3,12 +3,14 @@ project(ppos-test)
 
 set(SOURCE_FILES 
     ppos-core-aux.c 
-    # pingpong-preempcao.c
-    pingpong-scheduler-srtf.c
-    # pingpong-contab-prio.c
+    disk.c
+    pingpong-disco1.c
+    ppos_disk.c
 )
 
 add_executable(ppos-test ${SOURCE_FILES})
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/disk.dat ${CMAKE_CURRENT_BINARY_DIR}/disk.dat COPYONLY)
 
 set(LIB_PPOS_STATIC ${CMAKE_CURRENT_SOURCE_DIR}/libppos_static.a)
 
