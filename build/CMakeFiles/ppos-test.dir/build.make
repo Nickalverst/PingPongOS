@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/nicolas/Downloads/PingPongOS-nicky
+CMAKE_SOURCE_DIR = /home/nicolas/Desktop/PingPongOS-nicky
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/nicolas/Downloads/PingPongOS-nicky/build
+CMAKE_BINARY_DIR = /home/nicolas/Desktop/PingPongOS-nicky/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/ppos-test.dir/depend.make
@@ -59,44 +59,74 @@ include CMakeFiles/ppos-test.dir/flags.make
 
 CMakeFiles/ppos-test.dir/ppos-core-aux.c.o: CMakeFiles/ppos-test.dir/flags.make
 CMakeFiles/ppos-test.dir/ppos-core-aux.c.o: ../ppos-core-aux.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nicolas/Downloads/PingPongOS-nicky/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/ppos-test.dir/ppos-core-aux.c.o"
-	/usr/bin/c89-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ppos-test.dir/ppos-core-aux.c.o   -c /home/nicolas/Downloads/PingPongOS-nicky/ppos-core-aux.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nicolas/Desktop/PingPongOS-nicky/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/ppos-test.dir/ppos-core-aux.c.o"
+	/usr/bin/c89-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ppos-test.dir/ppos-core-aux.c.o   -c /home/nicolas/Desktop/PingPongOS-nicky/ppos-core-aux.c
 
 CMakeFiles/ppos-test.dir/ppos-core-aux.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ppos-test.dir/ppos-core-aux.c.i"
-	/usr/bin/c89-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nicolas/Downloads/PingPongOS-nicky/ppos-core-aux.c > CMakeFiles/ppos-test.dir/ppos-core-aux.c.i
+	/usr/bin/c89-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nicolas/Desktop/PingPongOS-nicky/ppos-core-aux.c > CMakeFiles/ppos-test.dir/ppos-core-aux.c.i
 
 CMakeFiles/ppos-test.dir/ppos-core-aux.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ppos-test.dir/ppos-core-aux.c.s"
-	/usr/bin/c89-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nicolas/Downloads/PingPongOS-nicky/ppos-core-aux.c -o CMakeFiles/ppos-test.dir/ppos-core-aux.c.s
+	/usr/bin/c89-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nicolas/Desktop/PingPongOS-nicky/ppos-core-aux.c -o CMakeFiles/ppos-test.dir/ppos-core-aux.c.s
 
-CMakeFiles/ppos-test.dir/pingpong-scheduler-srtf.c.o: CMakeFiles/ppos-test.dir/flags.make
-CMakeFiles/ppos-test.dir/pingpong-scheduler-srtf.c.o: ../pingpong-scheduler-srtf.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nicolas/Downloads/PingPongOS-nicky/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/ppos-test.dir/pingpong-scheduler-srtf.c.o"
-	/usr/bin/c89-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ppos-test.dir/pingpong-scheduler-srtf.c.o   -c /home/nicolas/Downloads/PingPongOS-nicky/pingpong-scheduler-srtf.c
+CMakeFiles/ppos-test.dir/disk.c.o: CMakeFiles/ppos-test.dir/flags.make
+CMakeFiles/ppos-test.dir/disk.c.o: ../disk.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nicolas/Desktop/PingPongOS-nicky/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/ppos-test.dir/disk.c.o"
+	/usr/bin/c89-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ppos-test.dir/disk.c.o   -c /home/nicolas/Desktop/PingPongOS-nicky/disk.c
 
-CMakeFiles/ppos-test.dir/pingpong-scheduler-srtf.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ppos-test.dir/pingpong-scheduler-srtf.c.i"
-	/usr/bin/c89-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nicolas/Downloads/PingPongOS-nicky/pingpong-scheduler-srtf.c > CMakeFiles/ppos-test.dir/pingpong-scheduler-srtf.c.i
+CMakeFiles/ppos-test.dir/disk.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ppos-test.dir/disk.c.i"
+	/usr/bin/c89-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nicolas/Desktop/PingPongOS-nicky/disk.c > CMakeFiles/ppos-test.dir/disk.c.i
 
-CMakeFiles/ppos-test.dir/pingpong-scheduler-srtf.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ppos-test.dir/pingpong-scheduler-srtf.c.s"
-	/usr/bin/c89-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nicolas/Downloads/PingPongOS-nicky/pingpong-scheduler-srtf.c -o CMakeFiles/ppos-test.dir/pingpong-scheduler-srtf.c.s
+CMakeFiles/ppos-test.dir/disk.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ppos-test.dir/disk.c.s"
+	/usr/bin/c89-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nicolas/Desktop/PingPongOS-nicky/disk.c -o CMakeFiles/ppos-test.dir/disk.c.s
+
+CMakeFiles/ppos-test.dir/pingpong-disco1.c.o: CMakeFiles/ppos-test.dir/flags.make
+CMakeFiles/ppos-test.dir/pingpong-disco1.c.o: ../pingpong-disco1.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nicolas/Desktop/PingPongOS-nicky/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/ppos-test.dir/pingpong-disco1.c.o"
+	/usr/bin/c89-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ppos-test.dir/pingpong-disco1.c.o   -c /home/nicolas/Desktop/PingPongOS-nicky/pingpong-disco1.c
+
+CMakeFiles/ppos-test.dir/pingpong-disco1.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ppos-test.dir/pingpong-disco1.c.i"
+	/usr/bin/c89-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nicolas/Desktop/PingPongOS-nicky/pingpong-disco1.c > CMakeFiles/ppos-test.dir/pingpong-disco1.c.i
+
+CMakeFiles/ppos-test.dir/pingpong-disco1.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ppos-test.dir/pingpong-disco1.c.s"
+	/usr/bin/c89-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nicolas/Desktop/PingPongOS-nicky/pingpong-disco1.c -o CMakeFiles/ppos-test.dir/pingpong-disco1.c.s
+
+CMakeFiles/ppos-test.dir/ppos_disk.c.o: CMakeFiles/ppos-test.dir/flags.make
+CMakeFiles/ppos-test.dir/ppos_disk.c.o: ../ppos_disk.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nicolas/Desktop/PingPongOS-nicky/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/ppos-test.dir/ppos_disk.c.o"
+	/usr/bin/c89-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ppos-test.dir/ppos_disk.c.o   -c /home/nicolas/Desktop/PingPongOS-nicky/ppos_disk.c
+
+CMakeFiles/ppos-test.dir/ppos_disk.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ppos-test.dir/ppos_disk.c.i"
+	/usr/bin/c89-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nicolas/Desktop/PingPongOS-nicky/ppos_disk.c > CMakeFiles/ppos-test.dir/ppos_disk.c.i
+
+CMakeFiles/ppos-test.dir/ppos_disk.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ppos-test.dir/ppos_disk.c.s"
+	/usr/bin/c89-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nicolas/Desktop/PingPongOS-nicky/ppos_disk.c -o CMakeFiles/ppos-test.dir/ppos_disk.c.s
 
 # Object files for target ppos-test
 ppos__test_OBJECTS = \
 "CMakeFiles/ppos-test.dir/ppos-core-aux.c.o" \
-"CMakeFiles/ppos-test.dir/pingpong-scheduler-srtf.c.o"
+"CMakeFiles/ppos-test.dir/disk.c.o" \
+"CMakeFiles/ppos-test.dir/pingpong-disco1.c.o" \
+"CMakeFiles/ppos-test.dir/ppos_disk.c.o"
 
 # External object files for target ppos-test
 ppos__test_EXTERNAL_OBJECTS =
 
 ppos-test: CMakeFiles/ppos-test.dir/ppos-core-aux.c.o
-ppos-test: CMakeFiles/ppos-test.dir/pingpong-scheduler-srtf.c.o
+ppos-test: CMakeFiles/ppos-test.dir/disk.c.o
+ppos-test: CMakeFiles/ppos-test.dir/pingpong-disco1.c.o
+ppos-test: CMakeFiles/ppos-test.dir/ppos_disk.c.o
 ppos-test: CMakeFiles/ppos-test.dir/build.make
 ppos-test: ../libppos_static.a
 ppos-test: CMakeFiles/ppos-test.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/nicolas/Downloads/PingPongOS-nicky/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable ppos-test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/nicolas/Desktop/PingPongOS-nicky/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable ppos-test"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ppos-test.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -109,6 +139,6 @@ CMakeFiles/ppos-test.dir/clean:
 .PHONY : CMakeFiles/ppos-test.dir/clean
 
 CMakeFiles/ppos-test.dir/depend:
-	cd /home/nicolas/Downloads/PingPongOS-nicky/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nicolas/Downloads/PingPongOS-nicky /home/nicolas/Downloads/PingPongOS-nicky /home/nicolas/Downloads/PingPongOS-nicky/build /home/nicolas/Downloads/PingPongOS-nicky/build /home/nicolas/Downloads/PingPongOS-nicky/build/CMakeFiles/ppos-test.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/nicolas/Desktop/PingPongOS-nicky/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nicolas/Desktop/PingPongOS-nicky /home/nicolas/Desktop/PingPongOS-nicky /home/nicolas/Desktop/PingPongOS-nicky/build /home/nicolas/Desktop/PingPongOS-nicky/build /home/nicolas/Desktop/PingPongOS-nicky/build/CMakeFiles/ppos-test.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/ppos-test.dir/depend
 

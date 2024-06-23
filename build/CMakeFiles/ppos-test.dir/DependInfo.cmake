@@ -4,8 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/nicolas/Downloads/PingPongOS-nicky/pingpong-scheduler-srtf.c" "/home/nicolas/Downloads/PingPongOS-nicky/build/CMakeFiles/ppos-test.dir/pingpong-scheduler-srtf.c.o"
-  "/home/nicolas/Downloads/PingPongOS-nicky/ppos-core-aux.c" "/home/nicolas/Downloads/PingPongOS-nicky/build/CMakeFiles/ppos-test.dir/ppos-core-aux.c.o"
+  "/home/nicolas/Desktop/PingPongOS-nicky/disk.c" "/home/nicolas/Desktop/PingPongOS-nicky/build/CMakeFiles/ppos-test.dir/disk.c.o"
+  "/home/nicolas/Desktop/PingPongOS-nicky/pingpong-disco1.c" "/home/nicolas/Desktop/PingPongOS-nicky/build/CMakeFiles/ppos-test.dir/pingpong-disco1.c.o"
+  "/home/nicolas/Desktop/PingPongOS-nicky/ppos-core-aux.c" "/home/nicolas/Desktop/PingPongOS-nicky/build/CMakeFiles/ppos-test.dir/ppos-core-aux.c.o"
+  "/home/nicolas/Desktop/PingPongOS-nicky/ppos_disk.c" "/home/nicolas/Desktop/PingPongOS-nicky/build/CMakeFiles/ppos-test.dir/ppos_disk.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

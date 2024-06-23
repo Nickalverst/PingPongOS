@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/nicolas/Downloads/PingPongOS-nicky
+CMAKE_SOURCE_DIR = /home/nicolas/Desktop/PingPongOS-nicky
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/nicolas/Downloads/PingPongOS-nicky/build
+CMAKE_BINARY_DIR = /home/nicolas/Desktop/PingPongOS-nicky/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/nicolas/Downloads/PingPongOS-nicky/build/CMakeFiles /home/nicolas/Downloads/PingPongOS-nicky/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nicolas/Desktop/PingPongOS-nicky/build/CMakeFiles /home/nicolas/Desktop/PingPongOS-nicky/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/nicolas/Downloads/PingPongOS-nicky/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nicolas/Desktop/PingPongOS-nicky/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -123,32 +123,59 @@ ppos-test/fast:
 	$(MAKE) -f CMakeFiles/ppos-test.dir/build.make CMakeFiles/ppos-test.dir/build
 .PHONY : ppos-test/fast
 
-pingpong-scheduler-srtf.o: pingpong-scheduler-srtf.c.o
+disk.o: disk.c.o
 
-.PHONY : pingpong-scheduler-srtf.o
+.PHONY : disk.o
 
 # target to build an object file
-pingpong-scheduler-srtf.c.o:
-	$(MAKE) -f CMakeFiles/ppos-test.dir/build.make CMakeFiles/ppos-test.dir/pingpong-scheduler-srtf.c.o
-.PHONY : pingpong-scheduler-srtf.c.o
+disk.c.o:
+	$(MAKE) -f CMakeFiles/ppos-test.dir/build.make CMakeFiles/ppos-test.dir/disk.c.o
+.PHONY : disk.c.o
 
-pingpong-scheduler-srtf.i: pingpong-scheduler-srtf.c.i
+disk.i: disk.c.i
 
-.PHONY : pingpong-scheduler-srtf.i
+.PHONY : disk.i
 
 # target to preprocess a source file
-pingpong-scheduler-srtf.c.i:
-	$(MAKE) -f CMakeFiles/ppos-test.dir/build.make CMakeFiles/ppos-test.dir/pingpong-scheduler-srtf.c.i
-.PHONY : pingpong-scheduler-srtf.c.i
+disk.c.i:
+	$(MAKE) -f CMakeFiles/ppos-test.dir/build.make CMakeFiles/ppos-test.dir/disk.c.i
+.PHONY : disk.c.i
 
-pingpong-scheduler-srtf.s: pingpong-scheduler-srtf.c.s
+disk.s: disk.c.s
 
-.PHONY : pingpong-scheduler-srtf.s
+.PHONY : disk.s
 
 # target to generate assembly for a file
-pingpong-scheduler-srtf.c.s:
-	$(MAKE) -f CMakeFiles/ppos-test.dir/build.make CMakeFiles/ppos-test.dir/pingpong-scheduler-srtf.c.s
-.PHONY : pingpong-scheduler-srtf.c.s
+disk.c.s:
+	$(MAKE) -f CMakeFiles/ppos-test.dir/build.make CMakeFiles/ppos-test.dir/disk.c.s
+.PHONY : disk.c.s
+
+pingpong-disco1.o: pingpong-disco1.c.o
+
+.PHONY : pingpong-disco1.o
+
+# target to build an object file
+pingpong-disco1.c.o:
+	$(MAKE) -f CMakeFiles/ppos-test.dir/build.make CMakeFiles/ppos-test.dir/pingpong-disco1.c.o
+.PHONY : pingpong-disco1.c.o
+
+pingpong-disco1.i: pingpong-disco1.c.i
+
+.PHONY : pingpong-disco1.i
+
+# target to preprocess a source file
+pingpong-disco1.c.i:
+	$(MAKE) -f CMakeFiles/ppos-test.dir/build.make CMakeFiles/ppos-test.dir/pingpong-disco1.c.i
+.PHONY : pingpong-disco1.c.i
+
+pingpong-disco1.s: pingpong-disco1.c.s
+
+.PHONY : pingpong-disco1.s
+
+# target to generate assembly for a file
+pingpong-disco1.c.s:
+	$(MAKE) -f CMakeFiles/ppos-test.dir/build.make CMakeFiles/ppos-test.dir/pingpong-disco1.c.s
+.PHONY : pingpong-disco1.c.s
 
 ppos-core-aux.o: ppos-core-aux.c.o
 
@@ -177,6 +204,33 @@ ppos-core-aux.c.s:
 	$(MAKE) -f CMakeFiles/ppos-test.dir/build.make CMakeFiles/ppos-test.dir/ppos-core-aux.c.s
 .PHONY : ppos-core-aux.c.s
 
+ppos_disk.o: ppos_disk.c.o
+
+.PHONY : ppos_disk.o
+
+# target to build an object file
+ppos_disk.c.o:
+	$(MAKE) -f CMakeFiles/ppos-test.dir/build.make CMakeFiles/ppos-test.dir/ppos_disk.c.o
+.PHONY : ppos_disk.c.o
+
+ppos_disk.i: ppos_disk.c.i
+
+.PHONY : ppos_disk.i
+
+# target to preprocess a source file
+ppos_disk.c.i:
+	$(MAKE) -f CMakeFiles/ppos-test.dir/build.make CMakeFiles/ppos-test.dir/ppos_disk.c.i
+.PHONY : ppos_disk.c.i
+
+ppos_disk.s: ppos_disk.c.s
+
+.PHONY : ppos_disk.s
+
+# target to generate assembly for a file
+ppos_disk.c.s:
+	$(MAKE) -f CMakeFiles/ppos-test.dir/build.make CMakeFiles/ppos-test.dir/ppos_disk.c.s
+.PHONY : ppos_disk.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -186,12 +240,18 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... ppos-test"
-	@echo "... pingpong-scheduler-srtf.o"
-	@echo "... pingpong-scheduler-srtf.i"
-	@echo "... pingpong-scheduler-srtf.s"
+	@echo "... disk.o"
+	@echo "... disk.i"
+	@echo "... disk.s"
+	@echo "... pingpong-disco1.o"
+	@echo "... pingpong-disco1.i"
+	@echo "... pingpong-disco1.s"
 	@echo "... ppos-core-aux.o"
 	@echo "... ppos-core-aux.i"
 	@echo "... ppos-core-aux.s"
+	@echo "... ppos_disk.o"
+	@echo "... ppos_disk.i"
+	@echo "... ppos_disk.s"
 .PHONY : help
 
 

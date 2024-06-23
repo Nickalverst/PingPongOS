@@ -73,6 +73,7 @@ void disk_queue_manager(void *arg __attribute__((unused))) {
       disk.wakeup = 0;
       request_t *task_request =
           (request_t *)queue_remove(&disk.suspend_queue, disk.suspend_queue);
+      disk.head_pos = task_request->block;
       task_resume(task_request->task);
     }
     
@@ -114,9 +115,10 @@ int disk_mgr_init(int *numBlocks, int *blockSize) {
 
   disk.ready_queue = NULL;
   disk.wakeup = 0;
+  disk.head_pos = 0;
   disk.suspend_queue = NULL;
-  disk.scheduler = FCFS;
-  // disk.scheduler = SSTF;
+  //disk.scheduler = FCFS;
+  disk.scheduler = SSTF;
   // disk.scheduler = CSCAN;
 
   task_create(&disk.disk_task, disk_queue_manager, NULL);
