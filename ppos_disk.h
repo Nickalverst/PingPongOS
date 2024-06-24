@@ -37,6 +37,7 @@ typedef struct {
   queue_t *ready_queue;
   queue_t *suspend_queue;
   semaphore_t semaphore;
+  mutex_t mutex;
   task_t disk_task;
 } disk_t;
 

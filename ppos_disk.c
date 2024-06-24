@@ -7,6 +7,7 @@
 #include <stdio.h>
 
 disk_t disk;
+int last_pos = 0;
 
 request_t *request_create(int operation, int block, void *buffer,
                           task_t *task) {
@@ -26,37 +27,46 @@ request_t *fcfs() {
 
 request_t *sstf() {
   request_t *first, *closest, *aux;
-  first = closest =
-      (request_t *)queue_remove(&disk.ready_queue, disk.ready_queue);
+  first = closest = (request_t *)disk.ready_queue;
   aux = first->next;
-
   int distance = abs(first->block - disk.head_pos);
 
   while (aux != first && aux != NULL) {
-    if (abs(aux->block - disk.head_pos) < distance) {
+    if (aux->block > last_pos && (aux->block - disk.head_pos) < distance) {
       closest = aux;
       distance = abs(aux->block - disk.head_pos);
     }
     aux = aux->next;
   }
-
-  return closest;
+  return (request_t *)queue_remove(&disk.ready_queue, (queue_t *)closest);
 }
 
 request_t *cscan() {
-  request_t *first, *lowest, *aux;
-  first = lowest =
-      (request_t *)queue_remove(&disk.ready_queue, disk.ready_queue);
+  request_t *first, *lowest, *aux, *current, *highest;
+  first = lowest = highest = (request_t *)disk.ready_queue;
   aux = first->next;
 
-  while (aux != first && aux != NULL) {
+  // Encontrando lowest e highest
+  while (aux != first) {
     if (aux->block < lowest->block) {
       lowest = aux;
+    }
+    if (aux->block > highest->block) {
+      highest = aux;
     }
     aux = aux->next;
   }
 
-  return lowest;
+  // considera a partir da posicao atual so
+  current = first;
+  while (current != first->prev) {
+    if (current->block >= disk.head_pos) {
+      return (request_t *)queue_remove(&disk.ready_queue, (queue_t *)current);
+    }
+    current = current->next;
+  }
+  // retorna o menor se não tiver maior
+  return (request_t *)queue_remove(&disk.ready_queue, (queue_t *)lowest);
 }
 
 request_t *disk_scheduler() {
@@ -72,7 +82,7 @@ request_t *disk_scheduler() {
 
 void disk_queue_manager(void *arg __attribute__((unused))) {
   while (1) {
-    sem_up(&disk.semaphore);
+
     if (disk.wakeup) {
       disk.wakeup = 0;
       request_t *task_request =
@@ -86,10 +96,13 @@ void disk_queue_manager(void *arg __attribute__((unused))) {
       request_t *request = disk_scheduler();
       if (disk_cmd(request->operation, request->block, request->buffer) == -1)
         exit(1);
+      if (request->block == 0) {
+        last_pos = 0;
+      
+      }
       queue_append(&disk.suspend_queue, (queue_t *)request);
     }
     task_suspend(&disk.disk_task, NULL);
-    sem_down(&disk.semaphore);
   }
 }
 
@@ -121,11 +134,12 @@ int disk_mgr_init(int *numBlocks, int *blockSize) {
   disk.head_pos = 0;
   disk.suspend_queue = NULL;
   // disk.scheduler = FCFS;
-  // disk.scheduler = SSTF;
-  disk.scheduler = CSCAN;
+  disk.scheduler = SSTF;
+  // disk.scheduler = CSCAN;
 
   task_create(&disk.disk_task, disk_queue_manager, NULL);
-  sem_create(&disk.semaphore, 0);
+  // sem_create(&disk.semaphore, 0);
+  mutex_create(&disk.mutex);
 
   return 0;
 }
@@ -146,16 +160,16 @@ int disk_block_read(int block, void *buffer) {
   if (!buffer)
     return -1;
 
-  sem_up(&disk.semaphore);
   request_t *request = request_create(DISK_CMD_READ, block, buffer, taskExec);
 
+  mutex_lock(&disk.mutex);
   queue_append(&disk.ready_queue, (queue_t *)request);
   task_resume(&disk.disk_task);
 
   task_suspend(taskExec, NULL);
   task_yield();
+  mutex_unlock(&disk.mutex);
 
-  sem_down(&disk.semaphore);
   return 0;
 }
 
@@ -176,15 +190,16 @@ int disk_block_write(int block, void *buffer) {
   if (!buffer)
     return -1;
 
-  sem_up(&disk.semaphore);
   request_t *request = request_create(DISK_CMD_WRITE, block, buffer, taskExec);
 
+  mutex_lock(&disk.mutex);
   queue_append(&disk.ready_queue, (queue_t *)request);
+
   task_resume(&disk.disk_task);
 
   task_suspend(taskExec, NULL);
   task_yield();
-  sem_down(&disk.semaphore);
+  mutex_unlock(&disk.mutex);
 
   return 0;
 }
