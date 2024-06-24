@@ -7,7 +7,6 @@
 #include <stdio.h>
 
 disk_t disk;
-int last_pos = 0;
 
 request_t *request_create(int operation, int block, void *buffer,
                           task_t *task) {
@@ -88,7 +87,7 @@ void disk_queue_manager(void *arg __attribute__((unused))) {
       disk.wakeup = 0;
       request_t *task_request =
           (request_t *)queue_remove(&disk.suspend_queue, disk.suspend_queue);
-
+      disk.distance += abs(task_request - disk.head_pos);
       disk.head_pos = task_request->block;
       task_resume(task_request->task);
     }
@@ -99,7 +98,7 @@ void disk_queue_manager(void *arg __attribute__((unused))) {
       if (disk_cmd(request->operation, request->block, request->buffer) == -1)
         exit(1);
       if (request->block == 255) {
-        last_pos = 255;
+        disk.last_pos = 255;
       }
       queue_append(&disk.suspend_queue, (queue_t *)request);
     }
@@ -138,9 +137,11 @@ int disk_mgr_init(int *numBlocks, int *blockSize) {
   disk.ready_queue = NULL;
   disk.wakeup = 0;
   disk.head_pos = 0;
+  disk.distance = 0;
+  disk.last_pos = 0;
   disk.suspend_queue = NULL;
-  disk.scheduler = FCFS;
-  // disk.scheduler = SSTF;
+  // disk.scheduler = FCFS;
+  disk.scheduler = SSTF;
   // disk.scheduler = CSCAN;
 
   task_create(&disk.disk_task, disk_queue_manager, NULL);

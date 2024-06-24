@@ -1,7 +1,7 @@
-#include "disk.h"
 #include "ppos-core-globals.h"
 #include "ppos.h"
 #include "ppos_data.h"
+#include "disk.h"
 #include <signal.h>
 #include <stdio.h>
 
@@ -23,9 +23,6 @@ void handler(int signum) {
   switch (signum) {
   case SIGALRM:
     systemTime++;
-    taskExec->quantum--;
-    taskExec->ret--;
-    taskExec->running_time++;
     if (taskExec == taskMain || taskExec == taskDisp) {
       if (countTasks == 1)
         exit(0);
@@ -38,6 +35,9 @@ void handler(int signum) {
     if (taskExec->ret == 0) {
       task_yield();
     }
+    taskExec->quantum--;
+    taskExec->ret--;
+    taskExec->running_time++;
     break;
   case SIGUSR1:
     disk.wakeup = 1;
@@ -204,6 +204,7 @@ void before_task_exit() {
          "activations\n",
          taskExec->id, systemTime - taskExec->processor_time,
          taskExec->running_time, taskExec->activations);
+  printf("Blocos percorridos: %d.\n", disk.distance);
 #ifdef DEBUG
   printf("\ntask_exit - BEFORE - [%d]", taskExec->id);
 #endif
