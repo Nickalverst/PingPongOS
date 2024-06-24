@@ -24,6 +24,8 @@ void handler(int signum) {
   case SIGALRM:
     systemTime++;
     if (taskExec == taskMain || taskExec == taskDisp) {
+      if (countTasks == 1)
+        exit(0);
       return;
     }
     if (taskExec->quantum == 0) {
