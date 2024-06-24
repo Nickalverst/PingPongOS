@@ -87,7 +87,7 @@ void disk_queue_manager(void *arg __attribute__((unused))) {
       disk.wakeup = 0;
       request_t *task_request =
           (request_t *)queue_remove(&disk.suspend_queue, disk.suspend_queue);
-      disk.distance += abs(task_request - disk.head_pos);
+      disk.distance += abs(task_request->block - disk.head_pos);
       disk.head_pos = task_request->block;
       task_resume(task_request->task);
     }
