@@ -23,6 +23,9 @@ void handler(int signum) {
   switch (signum) {
   case SIGALRM:
     systemTime++;
+    taskExec->quantum--;
+    taskExec->ret--;
+    taskExec->running_time++;
     if (taskExec == taskMain || taskExec == taskDisp) {
       if (countTasks == 1)
         exit(0);
@@ -35,9 +38,6 @@ void handler(int signum) {
     if (taskExec->ret == 0) {
       task_yield();
     }
-    taskExec->quantum--;
-    taskExec->ret--;
-    taskExec->running_time++;
     break;
   case SIGUSR1:
     disk.wakeup = 1;

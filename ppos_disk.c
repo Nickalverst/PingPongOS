@@ -139,8 +139,8 @@ int disk_mgr_init(int *numBlocks, int *blockSize) {
   disk.wakeup = 0;
   disk.head_pos = 0;
   disk.suspend_queue = NULL;
-  // disk.scheduler = FCFS;
-  disk.scheduler = SSTF;
+  disk.scheduler = FCFS;
+  // disk.scheduler = SSTF;
   // disk.scheduler = CSCAN;
 
   task_create(&disk.disk_task, disk_queue_manager, NULL);
