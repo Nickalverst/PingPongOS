@@ -31,7 +31,7 @@ request_t *sstf() {
   request_t *closest = request;
   int distance = abs(request->block - disk.head_pos);
 
-  while (aux != request) {
+  while (aux != request && aux != NULL) {
     if (abs(aux->block - disk.head_pos) < distance) {
       closest = aux;
       distance = abs(aux->block - disk.head_pos);
@@ -88,6 +88,7 @@ void disk_queue_manager(void *arg __attribute__((unused))) {
       disk.wakeup = 0;
       request_t *task_request =
           (request_t *)queue_remove(&disk.suspend_queue, disk.suspend_queue);
+
       disk.head_pos = task_request->block;
       task_resume(task_request->task);
     }
@@ -104,6 +105,9 @@ void disk_queue_manager(void *arg __attribute__((unused))) {
     }
     sem_up(&disk.semaphore);
     task_suspend(&disk.disk_task, NULL);
+    if (countTasks == 1) {
+      task_exit(0);
+    }
     task_yield();
   }
 }
@@ -136,8 +140,8 @@ int disk_mgr_init(int *numBlocks, int *blockSize) {
   disk.head_pos = 0;
   disk.suspend_queue = NULL;
   // disk.scheduler = FCFS;
-  // disk.scheduler = SSTF;
-  disk.scheduler = CSCAN;
+  disk.scheduler = SSTF;
+  // disk.scheduler = CSCAN;
 
   task_create(&disk.disk_task, disk_queue_manager, NULL);
   sem_create(&disk.semaphore, 1);
@@ -164,17 +168,13 @@ int disk_block_read(int block, void *buffer) {
 
   request_t *request = request_create(DISK_CMD_READ, block, buffer, taskExec);
 
-  if (queue_size(disk.ready_queue) == 0) {
-    printf("disk_block_read: disk.ready_queue is empty\n");
-  }
-
   mutex_lock(&disk.mutex);
   queue_append(&disk.ready_queue, (queue_t *)request);
   task_resume(&disk.disk_task);
 
-  mutex_unlock(&disk.mutex);
   task_suspend(taskExec, NULL);
   task_yield();
+  mutex_unlock(&disk.mutex);
 
   return 0;
 }
@@ -198,18 +198,14 @@ int disk_block_write(int block, void *buffer) {
 
   request_t *request = request_create(DISK_CMD_WRITE, block, buffer, taskExec);
 
-  if (queue_size(disk.ready_queue) == 0) {
-    printf("disk_block_read: disk.ready_queue is empty\n");
-  }
-
   mutex_lock(&disk.mutex);
   queue_append(&disk.ready_queue, (queue_t *)request);
 
   task_resume(&disk.disk_task);
 
-  mutex_unlock(&disk.mutex);
   task_suspend(taskExec, NULL);
   task_yield();
+  mutex_unlock(&disk.mutex);
 
   return 0;
 }
