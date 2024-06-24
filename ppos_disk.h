@@ -33,6 +33,8 @@ typedef struct {
   // completar com os campos necessarios
   int wakeup;
   int head_pos;
+  int distance;
+  int last_pos;
   enum scheduler scheduler;
   queue_t *ready_queue;
   queue_t *suspend_queue;
