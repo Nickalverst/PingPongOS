@@ -8,12 +8,12 @@
 
 /*
   pingpong-disco1.c
-  
+
   FCFS: First Come First Served
   Task 0 exit: execution time 22887 ms, processor time 0 ms, 1539 activations
   Blocos percorridos: 765.
   Task 0 exit: execution time 22929 ms, processor time 0 ms, 1539 activations
-  
+
   SSTF: Shortest Seek Time First
   Blocos percorridos: 765.
   Task 0 exit: execution time 22928 ms, processor time 0 ms, 1539 activations
@@ -138,9 +138,6 @@ void disk_queue_manager(void *arg __attribute__((unused))) {
     }
     sem_up(&disk.semaphore);
     task_suspend(&disk.disk_task, NULL);
-    if (countTasks == 1) {
-      task_exit(0);
-    }
     task_yield();
   }
 }
@@ -174,8 +171,8 @@ int disk_mgr_init(int *numBlocks, int *blockSize) {
   disk.distance = 0;
   disk.last_pos = 0;
   disk.suspend_queue = NULL;
-  disk.scheduler = FCFS;
-  // disk.scheduler = SSTF;
+  // disk.scheduler = FCFS;
+  disk.scheduler = SSTF;
   // disk.scheduler = CSCAN;
 
   task_create(&disk.disk_task, disk_queue_manager, NULL);
