@@ -9,6 +9,7 @@
 // Coloque aqui as suas modificações, p.ex. includes, defines variáveis,
 // estruturas e funções
 #include "ppos_disk.h"
+#include "queue.h"
 #include <signal.h>
 #include <sys/time.h>
 
@@ -23,6 +24,14 @@ void handler(int signum) {
   case SIGALRM:
     systemTime++;
     if (taskExec == taskMain || taskExec == taskDisp) {
+      // printf("queue size: %d\n", queue_size(disk.ready_queue));
+      // printf("queue size: %d\n", queue_size(disk.suspend_queue));
+      if (disk_cmd(DISK_CMD_STATUS, 0, 0) == DISK_STATUS_IDLE &&
+          (queue_size(disk.ready_queue) > 0 ||
+           queue_size(disk.suspend_queue) > 0)) {
+        disk.wakeup = 1;
+        task_resume(&disk.disk_task);
+      }
       return;
     }
     if (taskExec->quantum == 0) {
@@ -38,8 +47,8 @@ void handler(int signum) {
     break;
   case SIGUSR1:
     disk.wakeup = 1;
-    if (disk_cmd(DISK_CMD_STATUS, 0, 0) == DISK_STATUS_IDLE)
-      task_resume(&disk.disk_task);
+    // if (disk_cmd(DISK_CMD_STATUS, 0, 0) == DISK_STATUS_IDLE)
+    task_resume(&disk.disk_task);
     break;
   case SIGINT:
   case SIGTERM:
