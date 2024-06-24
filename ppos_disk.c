@@ -6,6 +6,40 @@
 #include "queue.h"
 #include <stdio.h>
 
+/*
+  pingpong-disco1.c
+  
+  FCFS: First Come First Served
+  Task 0 exit: execution time 22887 ms, processor time 0 ms, 1539 activations
+  Blocos percorridos: 765.
+  Task 0 exit: execution time 22929 ms, processor time 0 ms, 1539 activations
+  
+  SSTF: Shortest Seek Time First
+  Blocos percorridos: 765.
+  Task 0 exit: execution time 22928 ms, processor time 0 ms, 1539 activations
+  Blocos percorridos: 765.
+
+  CSCAN: Circular SCAN
+  Task 0 exit: execution time 22928 ms, processor time 0 ms, 1539 activations
+  Blocos percorridos: 765.
+
+  pingpong-disco2.c
+
+
+  FCFS: First Come First Served
+  Task 0 exit: execution time 33923 ms, processor time 0 ms, 4 activations
+  Blocos percorridos: 11399.
+
+  SSTF: Shortest Seek Time First
+  Task 0 exit: execution time 33923 ms, processor time 0 ms, 4 activations
+  Blocos percorridos: 11399.
+
+  CSCAN: Circular SCAN
+  Task 0 exit: execution time 33922 ms, processor time 0 ms, 4 activations
+  Blocos percorridos: 11399.
+
+*/
+
 disk_t disk;
 
 request_t *request_create(int operation, int block, void *buffer,
@@ -140,8 +174,8 @@ int disk_mgr_init(int *numBlocks, int *blockSize) {
   disk.distance = 0;
   disk.last_pos = 0;
   disk.suspend_queue = NULL;
-  // disk.scheduler = FCFS;
-  disk.scheduler = SSTF;
+  disk.scheduler = FCFS;
+  // disk.scheduler = SSTF;
   // disk.scheduler = CSCAN;
 
   task_create(&disk.disk_task, disk_queue_manager, NULL);
