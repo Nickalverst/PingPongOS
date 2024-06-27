@@ -1,3 +1,0 @@
-/home/nickybr/Documentos/SO/PingPongOS/build/CMakeFiles/ppos-test.dir
-/home/nickybr/Documentos/SO/PingPongOS/build/CMakeFiles/edit_cache.dir
-/home/nickybr/Documentos/SO/PingPongOS/build/CMakeFiles/rebuild_cache.dir
