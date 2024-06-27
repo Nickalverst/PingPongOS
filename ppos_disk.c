@@ -117,6 +117,7 @@ request_t *disk_scheduler() {
 void disk_queue_manager(void *arg __attribute__((unused))) {
   while (1) {
     sem_down(&disk.semaphore);
+    mutex_lock(&disk.mutex);
     if (disk.wakeup) {
       disk.wakeup = 0;
       request_t *task_request =
@@ -136,6 +137,7 @@ void disk_queue_manager(void *arg __attribute__((unused))) {
       }
       queue_append(&disk.suspend_queue, (queue_t *)request);
     }
+    mutex_unlock(&disk.mutex);
     sem_up(&disk.semaphore);
     task_suspend(&disk.disk_task, NULL);
     task_yield();
@@ -204,9 +206,9 @@ int disk_block_read(int block, void *buffer) {
   queue_append(&disk.ready_queue, (queue_t *)request);
   task_resume(&disk.disk_task);
 
+  mutex_unlock(&disk.mutex);
   task_suspend(taskExec, NULL);
   task_yield();
-  mutex_unlock(&disk.mutex);
 
   return 0;
 }
@@ -235,9 +237,9 @@ int disk_block_write(int block, void *buffer) {
 
   task_resume(&disk.disk_task);
 
+  mutex_unlock(&disk.mutex);
   task_suspend(taskExec, NULL);
   task_yield();
-  mutex_unlock(&disk.mutex);
 
   return 0;
 }
