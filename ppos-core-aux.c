@@ -23,6 +23,9 @@ void handler(int signum) {
   switch (signum) {
   case SIGALRM:
     systemTime++;
+    taskExec->running_time++;
+    taskExec->quantum--;
+    taskExec->ret--;
     if (taskExec == taskMain || taskExec == taskDisp) {
       if (countTasks == 1)
         exit(0);
@@ -35,13 +38,14 @@ void handler(int signum) {
     if (taskExec->ret == 0) {
       task_yield();
     }
-    taskExec->quantum--;
-    taskExec->ret--;
-    taskExec->running_time++;
     break;
   case SIGUSR1:
+    sem_down(&disk.semaphore);
+    mutex_lock(&disk.mutex);
     disk.wakeup = 1;
     task_resume(&disk.disk_task);
+    mutex_unlock(&disk.mutex);
+    sem_up(&disk.semaphore);
     break;
   case SIGINT:
   case SIGTERM:

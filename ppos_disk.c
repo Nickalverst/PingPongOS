@@ -6,6 +6,40 @@
 #include "queue.h"
 #include <stdio.h>
 
+/*
+  pingpong-disco1.c
+
+  FCFS: First Come First Served
+  Task 0 exit: execution time 22887 ms, processor time 0 ms, 1539 activations
+  Blocos percorridos: 765.
+  Task 0 exit: execution time 22929 ms, processor time 0 ms, 1539 activations
+
+  SSTF: Shortest Seek Time First
+  Blocos percorridos: 765.
+  Task 0 exit: execution time 22928 ms, processor time 0 ms, 1539 activations
+  Blocos percorridos: 765.
+
+  CSCAN: Circular SCAN
+  Task 0 exit: execution time 22928 ms, processor time 0 ms, 1539 activations
+  Blocos percorridos: 765.
+
+  pingpong-disco2.c
+
+
+  FCFS: First Come First Served
+  Task 0 exit: execution time 33923 ms, processor time 0 ms, 4 activations
+  Blocos percorridos: 11399.
+
+  SSTF: Shortest Seek Time First
+  Task 0 exit: execution time 33923 ms, processor time 0 ms, 4 activations
+  Blocos percorridos: 11399.
+
+  CSCAN: Circular SCAN
+  Task 0 exit: execution time 33922 ms, processor time 0 ms, 4 activations
+  Blocos percorridos: 11399.
+
+*/
+
 disk_t disk;
 
 request_t *request_create(int operation, int block, void *buffer,
@@ -83,11 +117,12 @@ request_t *disk_scheduler() {
 void disk_queue_manager(void *arg __attribute__((unused))) {
   while (1) {
     sem_down(&disk.semaphore);
+    mutex_lock(&disk.mutex);
     if (disk.wakeup) {
       disk.wakeup = 0;
       request_t *task_request =
           (request_t *)queue_remove(&disk.suspend_queue, disk.suspend_queue);
-      disk.distance += abs(task_request - disk.head_pos);
+      disk.distance += abs(task_request->block - disk.head_pos);
       disk.head_pos = task_request->block;
       task_resume(task_request->task);
     }
@@ -102,11 +137,9 @@ void disk_queue_manager(void *arg __attribute__((unused))) {
       }
       queue_append(&disk.suspend_queue, (queue_t *)request);
     }
+    mutex_unlock(&disk.mutex);
     sem_up(&disk.semaphore);
     task_suspend(&disk.disk_task, NULL);
-    if (countTasks == 1) {
-      task_exit(0);
-    }
     task_yield();
   }
 }
@@ -173,9 +206,9 @@ int disk_block_read(int block, void *buffer) {
   queue_append(&disk.ready_queue, (queue_t *)request);
   task_resume(&disk.disk_task);
 
+  mutex_unlock(&disk.mutex);
   task_suspend(taskExec, NULL);
   task_yield();
-  mutex_unlock(&disk.mutex);
 
   return 0;
 }
@@ -204,9 +237,9 @@ int disk_block_write(int block, void *buffer) {
 
   task_resume(&disk.disk_task);
 
+  mutex_unlock(&disk.mutex);
   task_suspend(taskExec, NULL);
   task_yield();
-  mutex_unlock(&disk.mutex);
 
   return 0;
 }
