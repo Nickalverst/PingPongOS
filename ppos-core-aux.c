@@ -40,12 +40,8 @@ void handler(int signum) {
     }
     break;
   case SIGUSR1:
-    sem_down(&disk.semaphore);
-    mutex_lock(&disk.mutex);
     disk.wakeup = 1;
     task_resume(&disk.disk_task);
-    mutex_unlock(&disk.mutex);
-    sem_up(&disk.semaphore);
     break;
   case SIGINT:
   case SIGTERM:
